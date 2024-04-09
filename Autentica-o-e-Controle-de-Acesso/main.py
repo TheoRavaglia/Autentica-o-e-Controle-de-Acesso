@@ -7,6 +7,7 @@ import hashlib
 def hash_senha(senha):
     return hashlib.sha256(senha.encode()).hexdigest()
 
+
 def acoes():
     while True:
         print("===========")
@@ -18,7 +19,6 @@ def acoes():
         print("3. Sair")
         print("===========")
         acao = input("Escolha uma opção: ")
-
 
 
 while True:
@@ -41,7 +41,6 @@ while True:
                 if nome == dados[0] and hash_senha(senha) == dados[1]:
                     usuario_registrado = True
                     print("Autenticação bem-sucedida.")
-                    print("Bem vindo", nome)
                     acoes()
                     break
                     
@@ -54,7 +53,7 @@ while True:
         senha_hash = hash_senha(senha)
 
         with open("usuarios.txt", "a") as arquivo:
-            arquivo.write(f"Nome: {nome}, Senha: {senha_hash}\n")
+            arquivo.write(f"{nome},{senha_hash}\n")
             print("Usuário registrado com sucesso!")
 
     elif opcao == "3":
