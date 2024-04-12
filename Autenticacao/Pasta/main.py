@@ -5,26 +5,23 @@ import getpass
 import hashlib
 import os
 
-def hash_senha(senha): ##Criptografia das senhas usando hashlib
+def hash_senha(senha): 
     return hashlib.sha256(senha.encode()).hexdigest()
 
 def listagem_arquivo():    
-    try:
         files = os.listdir()
         print("Arquivos no diretório:")
         for file in files:
             print(file)
-    except Exception as e:
-        print(f"Ocorreu um erro ao listar os arquivos: {e}")
+
 
 def criar_arquivo():
     fileName = input("Digite o nome do arquivo: ")
     conteudo = input("Digite o conteúdo do arquivo: ")
-    
     with open(fileName, 'w') as arquivo:
         arquivo.write(conteudo)
     
-    print(f"Arquivo '{fileName}' criado com sucesso!")
+    print(f"Arquivo '{fileName}' criado.")
 
 
 
@@ -36,7 +33,7 @@ def acoes(): ##Tela apos o login realizado com sucesso
         print("3. Ler Arquivo")
         print("4. Excluir Arquivo")
         print("5. Executar arquivo")
-        print("6. Sair")
+        print("6. Encerrar sessão")
         print("===========")
         acao = input("Escolha uma opção: ")
         
@@ -88,7 +85,9 @@ while True:  ##Menu inicial
         with open("usuarios.txt", "a") as arquivo:
             arquivo.write(f"{nome},{senha_hash}\n")
             print("Usuário registrado com sucesso!")
-
+        with open("permissoes.txt", "a") as permissao:
+            permissao.write(f"{nome},{'0'},{'0'},{'0'}\n")
+            
     elif opcao == "3":
         print("Programa encerrado")
         break
