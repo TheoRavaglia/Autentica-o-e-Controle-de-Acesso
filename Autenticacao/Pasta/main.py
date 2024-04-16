@@ -4,6 +4,7 @@
 import getpass
 import hashlib
 import os
+import subprocess
 
 def hash_senha(senha): 
     return hashlib.sha256(senha.encode()).hexdigest()
@@ -23,7 +24,52 @@ def criar_arquivo():
     
     print(f"Arquivo '{fileName}' criado.")
 
+def ler_arquivo():
+    nome_arquivo = input("Digite o nome do arquivo que deseja ler: ")
+    try:
+        # Abre o arquivo no visualizador de texto padrão
+        subprocess.run(["xdg-open", nome_arquivo])  # Para sistemas Linux com xdg-open
+        # subprocess.run(["open", nome_arquivo])  # Para sistemas macOS
+        # subprocess.run(["start", nome_arquivo], shell=True)  # Para sistemas Windows
+    except FileNotFoundError:
+        print("Arquivo não encontrado.")
 
+def excluir_arquivo():
+    fileName = input("Digite o nome do arquivo que deseja excluir: ")
+    try:
+        with open("permissoes.txt", "r") as permissao_arquivo:
+            permissoes = permissao_arquivo.readlines()
+            for linha in permissoes:
+                dados = linha.strip().split(",")
+                if nome == dados[0]:
+                    if int(dados[3]) == 1:  # Verifica se o usuário tem permissão para excluir arquivos
+                        os.remove(fileName)
+                        print(f"Arquivo '{fileName}' excluído com sucesso.")
+                        return
+                    else:
+                        print("Você não tem permissão para excluir arquivos.")
+                        return
+        print("Usuário não encontrado.")
+    except FileNotFoundError:
+        print("Arquivo de permissões não encontrado.")
+
+def executar_arquivo():
+    fileName = input("Digite o nome do arquivo que deseja executar: ")
+    try:
+        with open("permissoes.txt", "") as permissao_arquivo:
+            permissoes = permissao_arquivo.readlines()
+            for linha in permissoes:
+                dados = linha.strip().split(",")
+                if nome == dados[0]:
+                    if int(dados[2]) == 1:  # Verifica se o usuário tem permissão para executar arquivos
+                        subprocess.run(["python", fileName])
+                        return
+                    else:
+                        print("Você não tem permissão para executar arquivos.")
+                        return
+        print("Usuário não encontrado.")
+    except FileNotFoundError:
+        print("Arquivo de permissões não encontrado.")
 
 def acoes(): ##Tela apos o login realizado com sucesso
     while True:
@@ -41,6 +87,9 @@ def acoes(): ##Tela apos o login realizado com sucesso
             listagem_arquivo()
         elif acao == "2":
             criar_arquivo()
+        
+        elif acao == "3":
+            ler_arquivo()
         
         elif acao == "6":
             print("Sessão encerrada")
