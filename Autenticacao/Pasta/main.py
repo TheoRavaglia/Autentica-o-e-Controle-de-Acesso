@@ -73,9 +73,10 @@ while True:  ##Menu inicial
                     print("Autenticação bem-sucedida.")
                     acoes()
                     break
-                    
+
             if not registro:
-                print("Usuário ou senha inválidos.")
+                print("Usuário ou senha inválidos. Por favor, tente novamente.")
+                continue  # Volta ao início do loop para que o usuário escolha outra opção
 
     elif opcao == "2":
         nome = input("Informe seu nome: ")
