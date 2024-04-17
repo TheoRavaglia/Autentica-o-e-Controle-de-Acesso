@@ -1,0 +1,8 @@
+otavio,main.py,0,0,0
+otavio,permissoes.txt,0,0,0
+otavio,tempCodeRunnerFile.py,0,0,0
+otavio,usuarios.txt,0,0,0
+theo,main.py,0,0,0
+theo,permissoes.txt,0,0,0
+theo,tempCodeRunnerFile.py,0,0,0
+theo,usuarios.txt,0,0,0
